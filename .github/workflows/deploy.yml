@@ -30,7 +30,7 @@ jobs:
       - name: Build
         run: |
           cd frontend
-          npm run build
+          npm run build -- --base=/Holoattandance/
         env:
           VITE_API_URL: https://holoattandance.onrender.com
 
