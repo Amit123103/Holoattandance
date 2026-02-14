@@ -1,4 +1,7 @@
 # Biometric Attendance System
+use admin panel to login use:
+Username: admin
+password: admin123
 
 Advanced web application for student attendance using iris and fingerprint biometric authentication.
 
