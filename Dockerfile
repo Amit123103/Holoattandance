@@ -38,5 +38,8 @@ RUN mkdir -p biometric_storage/eye_scans && \
 # Expose port
 EXPOSE 8000
 
+# Force CPU for MediaPipe/TensorFlow
+ENV CUDA_VISIBLE_DEVICES=-1
+
 # Run Command
 CMD ["sh", "-c", "gunicorn -c gunicorn_conf.py main:app"]
