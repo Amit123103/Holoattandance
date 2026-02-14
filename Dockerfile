@@ -39,4 +39,4 @@ RUN mkdir -p biometric_storage/eye_scans && \
 EXPOSE 8000
 
 # Run Command
-CMD ["sh", "-c", "gunicorn -w 1 -k uvicorn.workers.UvicornWorker main:app --bind 0.0.0.0:${PORT:-10000} --timeout 120"]
+CMD ["sh", "-c", "gunicorn -c gunicorn_conf.py main:app"]
