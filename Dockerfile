@@ -19,6 +19,8 @@ RUN apt-get update && apt-get install -y \
     libsm6 \
     libxext6 \
     libxrender-dev \
+    libegl1 \
+    libgl1-mesa-dri \
     && rm -rf /var/lib/apt/lists/*
 
 # Copy Backend
@@ -40,6 +42,8 @@ EXPOSE 8000
 
 # Force CPU for MediaPipe/TensorFlow
 ENV CUDA_VISIBLE_DEVICES=-1
+# Suppress Info/Warning logs from TensorFlow/MediaPipe
+ENV GLOG_minloglevel=2
 
 # Run Command
 CMD ["sh", "-c", "gunicorn -c gunicorn_conf.py main:app"]
