@@ -43,9 +43,10 @@ from app.security_middleware import SecurityMiddleware
 app.add_middleware(SecurityMiddleware)
 
 # Mount static files for biometric images
-os.makedirs("../biometric_storage/eye_scans", exist_ok=True)
-os.makedirs("../biometric_storage/thumb_scans", exist_ok=True)
-app.mount("/biometric_storage", StaticFiles(directory="../biometric_storage"), name="biometric_storage")
+# Mount static files for biometric images
+os.makedirs("biometric_storage/eye_scans", exist_ok=True)
+os.makedirs("biometric_storage/thumb_scans", exist_ok=True)
+app.mount("/biometric_storage", StaticFiles(directory="biometric_storage"), name="biometric_storage")
 
 # Request/Response Models
 class RegistrationRequest(BaseModel):

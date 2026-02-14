@@ -44,14 +44,14 @@ async def register_student(
     encrypted_thumb = encryptor.encrypt_template(thumb_template_json.encode())
     
     # Save images
-    os.makedirs("../biometric_storage/eye_scans", exist_ok=True)
-    os.makedirs("../biometric_storage/thumb_scans", exist_ok=True)
+    os.makedirs("biometric_storage/eye_scans", exist_ok=True)
+    os.makedirs("biometric_storage/thumb_scans", exist_ok=True)
     
     eye_filename = f"{reg_no}_{name.replace(' ', '_')}_eye.jpg"
     thumb_filename = f"{reg_no}_{name.replace(' ', '_')}_thumb.jpg"
     
-    eye_path = f"../biometric_storage/eye_scans/{eye_filename}"
-    thumb_path = f"../biometric_storage/thumb_scans/{thumb_filename}"
+    eye_path = f"biometric_storage/eye_scans/{eye_filename}"
+    thumb_path = f"biometric_storage/thumb_scans/{thumb_filename}"
     
     cv2.imwrite(eye_path, eye_image)
     cv2.imwrite(thumb_path, thumb_image)
