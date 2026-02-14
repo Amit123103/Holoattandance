@@ -29,13 +29,17 @@ export default function CommandPalette() {
         if (isOpen) {
             const token = localStorage.getItem('token');
             if (token) {
-                const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:8000';
-                fetch(`${apiUrl}/api/admin/students`, {
-                    headers: { 'Authorization': `Bearer ${token}` }
-                })
-                    .then(res => res.json())
-                    .then(data => setStudents(data.students || []))
-                    .catch(() => { }); // Silent fail if not admin
+                // Using dynamic import of api/axiosConfig to avoid circular dependency issues if any,
+                // but direct import is cleaner. Let's use direct for now.
+                // Assuming api is imported at top.
+                import('../api/axiosConfig').then(module => {
+                    const api = module.default;
+                    api.get('/api/admin/students', {
+                        headers: { 'Authorization': `Bearer ${token}` }
+                    })
+                        .then(res => setStudents(res.data.students || []))
+                        .catch(() => { }); // Silent fail if not admin
+                });
             }
         }
     }, [isOpen]);

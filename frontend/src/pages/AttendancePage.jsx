@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { FaArrowLeft, FaCheckCircle, FaTimesCircle } from 'react-icons/fa'
 import WebcamCapture from '../components/WebcamCapture'
-import axios from 'axios'
+import api from '../api/axiosConfig'
 
 export default function AttendancePage() {
     const navigate = useNavigate()
@@ -22,7 +22,7 @@ export default function AttendancePage() {
         setError('')
 
         try {
-            const response = await axios.post('http://localhost:8000/api/verify', {
+            const response = await api.post('/api/verify', {
                 eye_image: eyeImage,
                 thumb_image: imageData
             })

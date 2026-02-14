@@ -2,7 +2,7 @@ import { useState, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { FaArrowLeft, FaEye, FaFingerprint, FaCheckCircle } from 'react-icons/fa'
 import WebcamCapture from '../components/WebcamCapture'
-import axios from 'axios'
+import api from '../api/axiosConfig'
 
 export default function RegistrationPage() {
     const navigate = useNavigate()
@@ -34,7 +34,7 @@ export default function RegistrationPage() {
         setError('')
 
         try {
-            const response = await axios.post('http://localhost:8000/api/register', {
+            const response = await api.post('/api/register', {
                 name: formData.name,
                 registration_number: formData.regNo,
                 eye_image: eyeImage,
