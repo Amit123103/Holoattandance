@@ -1,0 +1,41 @@
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    environment:
+      - DATABASE_URL=postgresql://postgres:postgres@db:5432/biometric_db
+      - SECRET_KEY=dev_secret_key_12345
+    depends_on:
+      - db
+    volumes:
+      - ./biometric_storage:/app/biometric_storage
+    networks:
+      - holo-network
+
+  db:
+    image: postgres:15-alpine
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=biometric_db
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - holo-network
+
+  redis:
+    image: redis:alpine
+    ports:
+      - "6379:6379"
+    networks:
+      - holo-network
+
+networks:
+  holo-network:
+    driver: bridge
+
+volumes:
+  postgres_data:

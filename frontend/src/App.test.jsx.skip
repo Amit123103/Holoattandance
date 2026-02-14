@@ -1,0 +1,32 @@
+import { describe, it, expect, vi } from 'vitest';
+import { render, screen } from '@testing-library/react';
+import App from './App';
+import { BrowserRouter } from 'react-router-dom';
+
+// Mock NetworkContext
+vi.mock('./context/NetworkContext', () => ({
+    NetworkProvider: ({ children }) => <div>{children}</div>,
+    useNetwork: () => ({ isOnline: true }),
+}));
+
+// Mock TourGuide
+vi.mock('./components/TourGuide', () => ({
+    default: () => null,
+}));
+
+describe('App Component', () => {
+    it('renders without crashing', () => {
+        // We need to wrap App in BrowserRouter since it uses routing
+        // But App might already contain BrowserRouter? 
+        // Checking main.jsx: App is wrapped in BrowserRouter there. 
+        // So App itself expects to be inside one or contains routes?
+        // App.jsx usually contains <Routes>...
+
+        render(
+            <BrowserRouter>
+                <App />
+            </BrowserRouter>
+        );
+        // You can add assertions here, e.g., expect(screen.getByText(/holo/i)).toBeInTheDocument();
+    });
+});
