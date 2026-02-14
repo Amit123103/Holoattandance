@@ -6,6 +6,8 @@ WORKDIR /app/frontend
 COPY frontend/package*.json ./
 RUN npm install
 COPY frontend/ ./
+ARG VITE_API_URL
+ENV VITE_API_URL=${VITE_API_URL:-https://holoattandance.onrender.com}
 RUN npm run build
 
 # 2. Build Backend
