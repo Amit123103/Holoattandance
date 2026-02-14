@@ -191,7 +191,7 @@ async def verify_liveness_action(request: Request, payload: LivenessRequest):
 
 # Serve static files if built
 if os.path.exists("static/index.html"):
-    app.mount("/static", StaticFiles(directory="static/static"), name="static-files")
+    app.mount("/assets", StaticFiles(directory="static/assets"), name="assets")
     
     @app.get("/{full_path:path}")
     async def serve_react_app(full_path: str):
@@ -201,7 +201,7 @@ if os.path.exists("static/index.html"):
 else:
     @app.get("/")
     def read_root():
-        return {"message": "Biometric Attendance API is running. (Frontend not built)", "status": "running"}
+        return {"message": "Biometric Attendance API is running. (Static files not found)", "status": "running"}
 
 @app.post("/api/register")
 async def register_student(request: RegistrationRequest, db: Session = Depends(get_db)):
