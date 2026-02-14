@@ -19,13 +19,18 @@ from sqlalchemy import func
 # Initialize Services
 from app.config_service import config_service
 
-# Create database tables
-Base.metadata.create_all(bind=engine)
-
-# Initialize default configs
-db = Session(bind=engine)
-config_service.initialize_defaults(db)
-db.close()
+# Create database tables (Graceful handling)
+try:
+    Base.metadata.create_all(bind=engine)
+    
+    # Initialize default configs
+    db = Session(bind=engine)
+    config_service.initialize_defaults(db)
+    db.close()
+    print("Database initialized successfully.")
+except Exception as e:
+    print(f"Warning: Database initialization failed: {e}")
+    print("Continuing startup... DB features may be limited until connection is restored.")
 
 app = FastAPI(title="Biometric Attendance System")
 
